@@ -5,11 +5,10 @@ public class Pizza {
 	private String sabor;
 	private double preco;
 	
-	public void Pizza(String sabor, double preco) {
+	public Pizza(String sabor, double preco) {
 		this.sabor = sabor;
 		this.preco = preco;
 	}
-	
 	
 		
 	//GETTERS AND SETTERS

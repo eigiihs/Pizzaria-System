@@ -6,27 +6,38 @@ public class Pizzaria {
 
 	private String nome;
 	
+	private static ArrayList<Motoboy> Motoboys = new ArrayList<>();
+
 	private ArrayList<Pizza> Pizzas = new ArrayList<>();
-	
-	private ArrayList<Motoboy> Motoboys = new ArrayList<>();
-	
+
 
 	public void adicionarPizza (Pizza pizza) {
 		
+		Pizzas.add(pizza);
 	}
 	
 	public void listarPizzas() {
 		
+		int contador = 1;
+		for (Pizza pizza : Pizzas) {
+			System.out.println(contador + ". Sabor: " + pizza.getSabor() + ", Preço: " + pizza.getPreco());
+			contador++;
+		}
 	}
 	
-	public void adicionarMotoboy (Motoboy motoboy) {
+	public static void adicionarMotoboy (Motoboy motoboy) {
 		
+		Motoboys.add(motoboy);
 	}
 	
-	public void listarMotoboys() {
+	public static void listarMotoboys() {
 		
+		int contador = 1;
+		for (Motoboy m : Motoboys) {
+			System.out.println(contador + ". Nome: " + m.getNome() + ", Moto: " + m.getMoto());
+			contador++;
+		}
 	}
-
 
 	
 	//GETTERS AND SETTERS
