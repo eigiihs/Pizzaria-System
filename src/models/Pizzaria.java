@@ -5,43 +5,47 @@ import java.util.ArrayList;
 public class Pizzaria {
 
 	private String nome;
-	
-	private static ArrayList<Motoboy> Motoboys = new ArrayList<>();
+
+	private ArrayList<Motoboy> Motoboys = new ArrayList<>();
 
 	private ArrayList<Pizza> Pizzas = new ArrayList<>();
 
+	public void adicionarPizza(Pizza pizza) {
 
-	public void adicionarPizza (Pizza pizza) {
-		
 		Pizzas.add(pizza);
 	}
-	
+
 	public void listarPizzas() {
-		
-		int contador = 1;
-		for (Pizza pizza : Pizzas) {
-			System.out.println(contador + ". Sabor: " + pizza.getSabor() + ", Preço: " + pizza.getPreco());
-			contador++;
-		}
-	}
-	
-	public static void adicionarMotoboy (Motoboy motoboy) {
-		
-		Motoboys.add(motoboy);
-	}
-	
-	public static void listarMotoboys() {
-		
-		int contador = 1;
-		for (Motoboy m : Motoboys) {
-			System.out.println(contador + ". Nome: " + m.getNome() + ", Moto: " + m.getMoto());
-			contador++;
+		if (Pizzas.size() <= 0) {
+			System.out.println("Nenhuma pizza encontrada!!");
+		} else {
+			int contador = 1;
+			for (Pizza pizza : Pizzas) {
+				System.out.println(contador + ". Sabor: " + pizza.getSabor() + ", Preço: " + pizza.getPreco());
+				contador++;
+			}
 		}
 	}
 
-	
-	//GETTERS AND SETTERS
-	
+	public void adicionarMotoboy(Motoboy motoboy) {
+
+		Motoboys.add(motoboy);
+	}
+
+	public void listarMotoboys() {
+		if (Motoboys.size() <= 0) {
+			System.out.println("Nenhum motoboy encontrado!!");
+		} else {
+			int contador = 1;
+			for (Motoboy m : Motoboys) {
+				System.out.println(contador + ". Nome: " + m.getNome() + ", Moto: " + m.getMoto());
+				contador++;
+			}
+		}
+	}
+
+	// GETTERS AND SETTERS
+
 	public String getNome() {
 		return nome;
 	}

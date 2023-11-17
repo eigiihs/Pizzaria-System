@@ -1,11 +1,10 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import models.GestaoPizzaria;
 import models.Motoboy;
+import models.Pizza;
 import models.Pizzaria;
 
 public class Sistema {
@@ -14,94 +13,110 @@ public class Sistema {
 
 		Scanner sc = new Scanner(System.in);
 
-		boolean start = true;
+		//Instanciando um novo objeto da classe GestaoPizzaria
+		GestaoPizzaria newGestao = new GestaoPizzaria();
 
-		while (start) {
+		do {
 
-			System.out.println("\nEscolha uma opção:");
-			System.out.println("1. Gerenciar Pizzarias");
-			System.out.println("2. Gerenciar Motoboys");
+			System.out.println("\n----- Bem Vindo ao nosso Sistema -----");
+			System.out.println("Escolha uma opção:");
+			System.out.println("1. Adicionar Pizzaria");
+			System.out.println("2. Ver lista de Pizzarias");
+			System.out.println("3. Gerenciar Pizzaria");
 			System.out.println("0. Encerrar o Sistema");
+			System.out.println("--------------------------------------");
 
 			int opc = sc.nextInt();
 
 			switch (opc) {
 				case 1:
+					System.out.println("\nInforme o nome da pizzaria");
+					String nomePizzaria = sc.next();
 
-					boolean gerenciaPizzaria = true;
-
-					while (gerenciaPizzaria) {
-
-						System.out.println("\nEscolha uma opção:");
-						System.out.println("1. Adicionar pizzaria");
-						System.out.println("2. Ver lista de Pizzarias");
-						System.out.println("0. Voltar ao menu principal");
-
-						int opcPizzaria = sc.nextInt();
-
-						switch (opcPizzaria) {
-							case 1:
-								System.out.println("Informe o nome da pizzaria");
-								String nome = sc.next();
-
-								Pizzaria newPizzaria = new Pizzaria();
-								newPizzaria.setNome(nome);
-								GestaoPizzaria.adicionarPizzaria(newPizzaria);
-								System.out.println("Pizzaria adicionada com sucesso!");
-								break;
-							case 2:
-
-								System.out.println("\nLista de Pizzarias:");
-								GestaoPizzaria.listarPizzarias();
-								break;
-							case 0:
-								gerenciaPizzaria = false;
-								break;
-							default:
-								System.out.println("Opção Inválida!!");
-								break;
-						}
-					}
-
+					//Instanciando um novo objeto da classe Pizzaria
+					Pizzaria newPizzaria = new Pizzaria();
+					//Adicionando o nome da Pizzaria na instancia newPizzaria
+					newPizzaria.setNome(nomePizzaria);
+					//Adicionando a newPizzaria na lista de Pizzarias dentro da classe GestaoPizzaria
+					newGestao.adicionarPizzaria(newPizzaria);
+					System.out.println("\nPizzaria adicionada com sucesso!");
 					break;
 				case 2:
+					System.out.println("\n---- Lista de Pizzarias ----");
+					//Listando as pizzarias na Instancia da classe GestaoPizzaria
+					newGestao.listarPizzarias();
+					break;
+				case 3:
+					System.out.println("\n---- Lista de Pizzarias ----");
+					newGestao.listarPizzarias();
 
-					boolean gerenciaMotoboy = true;
+					System.out.println("\nDigite o número da pizzaria que deseja gerenciar:");
+					int idPizzaria = sc.nextInt();
 
-					while (gerenciaMotoboy) {
+					//Verificando se o id da Pizza é existente (maior que 0 e menor que o tamanho da lista)
+					if (idPizzaria > 0 && idPizzaria <= newGestao.getPizzarias().size()) {
+						//Criando variável escolPizzaria que armazena o item correspondente ao id da lista Pizzarias criada na classe GestaoPizzaria
+						Pizzaria escolPizzaria = newGestao.getPizzarias().get(idPizzaria - 1);
 
-						System.out.println("\nEscolha uma opção:");
-						System.out.println("1. Adicionar Motoboy");
-						System.out.println("2. Ver lista de Motoboys");
-						System.out.println("0. Voltar ao menu principal");
+						boolean gestaoPizzaria = true;
 
-						int opcMot = sc.nextInt();
+						while (gestaoPizzaria) {
 
-						switch (opcMot) {
-							case 1:
-								System.out.println("Informe o nome do(a) MotoBoy:");
-								String nome = sc.next();
-								sc.nextLine();
-								System.out.println("Informe a Moto:");
-								String moto = sc.nextLine();
+							System.out.println("\n---- Gerenciando a Pizzaria: " + escolPizzaria.getNome() + " ----");
+							System.out.println("1. Adicionar pizza ao menu");
+							System.out.println("2. Ver menu de pizzas");
+							System.out.println("3. Adicionar Motoboy");
+							System.out.println("4. Ver lista de Motoboys");
+							System.out.println("0. Voltar");
 
-								Motoboy newMotoboy = new Motoboy(nome, moto);
-								Pizzaria.adicionarMotoboy(newMotoboy);
-								System.out.println("MotoBoy adicionado com sucesso!");
-								break;
-							case 2:
-								System.out.println("\nLista de Motoboys:");
-								Pizzaria.listarMotoboys();
-								break;
-							case 0:
-								gerenciaMotoboy = false;
-								break;
-							default:
-								System.out.println("Opção Inválida!!");
-								break;
+							int opcGestaoPizzar = sc.nextInt();
+
+							switch (opcGestaoPizzar) {
+								case 1:
+									System.out.println("\nDigite o sabor da pizza:");
+									String sabor = sc.next();
+									System.out.println("Digite o valor da pizza:");
+									double preco = sc.nextDouble();
+
+									//Instanciando um novo objeto da classe Pizza
+									Pizza newPizza = new Pizza(sabor, preco);
+									//Adicionando a nova pizza na pizzaria escolhida de acordo com o id
+									escolPizzaria.adicionarPizza(newPizza);
+									System.out.println("\nPizza adicionada com sucesso!!");
+									break;
+								case 2:
+									System.out.println("\n---- Menu de Pizzas ----");
+									escolPizzaria.listarPizzas();
+									break;
+								case 3:
+									System.out.println("\nInforme o nome do(a) MotoBoy:");
+									String nome = sc.next();
+									
+									System.out.println("Informe a Moto:");
+									String moto = sc.next();
+
+									//Instanciando um novo objeto da classe Motoboy
+									Motoboy newMotoboy = new Motoboy(nome, moto);
+									//Adicionando o novo motoboy na pizzaria escolhida de acordo com o id
+									escolPizzaria.adicionarMotoboy(newMotoboy);
+									System.out.println("\nMotoBoy adicionado com sucesso!!");
+									break;
+								case 4:
+									System.out.println("\n---- Lista de Motoboys ----");
+									escolPizzaria.listarMotoboys();
+									break;
+								case 0:
+									gestaoPizzaria = false;
+									break;
+								default:
+									System.out.println("Opção Inválida!!");
+									break;
+							}
 						}
+
+					} else {
+						System.out.println("Pizzaria não existente!");
 					}
-					
 					break;
 				case 0:
 					System.out.println("Encerrando o sistema...");
@@ -112,6 +127,7 @@ public class Sistema {
 					break;
 			}
 
-		}
+		} while (true);
+
 	}
 }
