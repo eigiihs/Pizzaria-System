@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 import models.GestaoPizzaria;
@@ -31,7 +32,8 @@ public class Sistema {
 			switch (opc) {
 				case 1:
 					System.out.println("\nInforme o nome da pizzaria");
-					String nomePizzaria = sc.next();
+					sc.nextLine();
+					String nomePizzaria = sc.nextLine();
 
 					//Instanciando um novo objeto da classe Pizzaria
 					Pizzaria newPizzaria = new Pizzaria();
@@ -74,9 +76,17 @@ public class Sistema {
 							switch (opcGestaoPizzar) {
 								case 1:
 									System.out.println("\nDigite o sabor da pizza:");
-									String sabor = sc.next();
+									sc.nextLine();
+									String sabor = sc.nextLine();
+
 									System.out.println("Digite o valor da pizza:");
+									sc.useLocale(Locale.US);
+									while (!sc.hasNextDouble()) {
+										System.out.println("Valor inválido! Digite o valor da pizza novamente. Utilize '.' para separação decimal:");
+										sc.next();  // Consumir a entrada inválida, para evitar um loop infinito
+									} 
 									double preco = sc.nextDouble();
+									sc.nextLine();
 
 									//Instanciando um novo objeto da classe Pizza
 									Pizza newPizza = new Pizza(sabor, preco);
@@ -90,10 +100,11 @@ public class Sistema {
 									break;
 								case 3:
 									System.out.println("\nInforme o nome do(a) MotoBoy:");
-									String nome = sc.next();
+									sc.nextLine();
+									String nome = sc.nextLine();
 									
 									System.out.println("Informe a Moto:");
-									String moto = sc.next();
+									String moto = sc.nextLine();
 
 									//Instanciando um novo objeto da classe Motoboy
 									Motoboy newMotoboy = new Motoboy(nome, moto);
